@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import { Icon, stylesFactory } from '@grafana/ui';
+import { CodeEditor, Icon, stylesFactory } from '@grafana/ui';
 import { css } from 'emotion';
 import { KustoQuery, AdxDataSourceOptions, AdxSchema } from 'types';
 import { AdxDataSource } from 'datasource';
 import { QueryEditorProps, SelectableValue } from '@grafana/data';
-import { KustoMonacoEditor } from '../monaco/KustoMonacoEditor';
+// import { KustoMonacoEditor } from '../monaco/KustoMonacoEditor';
 import { QueryEditorResultFormat, selectResultFormat } from 'components/QueryEditorResultFormat';
 
 type Props = QueryEditorProps<AdxDataSource, KustoQuery, AdxDataSourceOptions>;
@@ -34,6 +34,22 @@ const defaultQuery = [
 
 export class RawQueryEditor extends PureComponent<RawQueryEditorProps, State> {
   state: State = {};
+
+  componentDidMount() {
+    console.log('mount');
+
+    window.MonacoEnvironment = {
+      getWorkerUrl: function() {
+        return `/${this.props.datasource.meta.baseUrl}/monaco-kusto.js`;
+      },
+    };
+
+    import('monaco.contribution').then(async (contribution: any) => {
+      const model = window.monaco && window.monaco.editor.createModel('', 'kusto');
+      const workerAccessor: monaco.languages.kusto.WorkerAccessor = await monaco.languages.kusto.getKustoWorker();
+      const worker: monaco.languages.kusto.KustoWorker = await workerAccessor(model.uri);
+    });
+  }
 
   onRawQueryChange = (kql: string) => {
     const resultFormat = selectResultFormat(this.props.query.resultFormat, true);
@@ -66,14 +82,15 @@ export class RawQueryEditor extends PureComponent<RawQueryEditorProps, State> {
 
     return (
       <div>
-        <KustoMonacoEditor
+        <CodeEditor height={500} value="" language="kusto" />
+        {/* <KustoMonacoEditor
           defaultTimeField="Timestamp"
           pluginBaseUrl={datasource.meta.baseUrl}
           content={query.query || defaultQuery}
           getSchema={async () => schema}
           onChange={this.onRawQueryChange}
           onExecute={this.props.onRunQuery}
-        />
+        /> */}
 
         <div className={styles.toolbar}>
           <QueryEditorResultFormat
