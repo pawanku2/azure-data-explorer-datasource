@@ -6,6 +6,7 @@ Note: The minimum required version of Grafana is now 7.4
 
 - Bugfix: Fixed issue where query builder did not handle table names that contained special characters
 - Bugfix: Fixed empty WHERE lines staying in the query builder when cleared
+- Bugfix: Replace template variables inside other template variable queries
 - Template variables can now be used in the queries of other template variables.
 
 ## [3.3.2]
