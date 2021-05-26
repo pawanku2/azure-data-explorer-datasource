@@ -74,7 +74,7 @@ export class KustoMonacoEditor extends React.Component<Props, MonacoState> {
     });
 
     window.onresize = () => {
-      this.kustoCodeEditor?.resize();
+      this.kustoCodeEditor && this.kustoCodeEditor.resize();
     };
   }
 

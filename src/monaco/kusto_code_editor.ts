@@ -93,35 +93,35 @@ export default class KustoCodeEditor {
 
     this.codeEditor.createContextKey('readyToExecute', true);
 
-    this.codeEditor.onDidChangeCursorSelection(event => {
+    this.codeEditor.onDidChangeCursorSelection((event) => {
       this.onDidChangeCursorSelection(event);
     });
 
-    this.getSchema().then(schema => {
+    this.getSchema().then((schema) => {
       if (!schema) {
         return;
       }
 
-      monaco.languages['kusto'].getKustoWorker().then(workerAccessor => {
+      monaco.languages['kusto'].getKustoWorker().then((workerAccessor) => {
         const model = this.codeEditor?.getModel();
         if (!model) {
           return;
         }
-        workerAccessor(model.uri).then(worker => {
+        workerAccessor(model.uri).then((worker) => {
           const dbName = Object.keys(schema.Databases).length > 0 ? Object.keys(schema.Databases)[0] : '';
           worker.setSchemaFromShowSchema(schema, 'https://help.kusto.windows.net', dbName);
-          this.codeEditor?.layout();
+          this.codeEditor && this.codeEditor.layout();
         });
       });
     });
   }
 
   resize() {
-    this.codeEditor?.layout();
+    this.codeEditor && this.codeEditor.layout();
   }
 
   setOnDidChangeModelContent(listener) {
-    this.codeEditor?.onDidChangeModelContent(listener);
+    this.codeEditor && this.codeEditor.onDidChangeModelContent(listener);
   }
 
   disposeMonaco() {
@@ -149,7 +149,7 @@ export default class KustoCodeEditor {
   }
 
   addCommand(keybinding: number, commandFunc: monaco.editor.ICommandHandler) {
-    this.codeEditor?.addCommand(keybinding, commandFunc, 'readyToExecute');
+    this.codeEditor && this.codeEditor.addCommand(keybinding, commandFunc, 'readyToExecute');
   }
 
   getValue() {
@@ -161,7 +161,7 @@ export default class KustoCodeEditor {
   }
 
   setEditorContent(value) {
-    this.codeEditor?.setValue(value);
+    this.codeEditor && this.codeEditor.setValue(value);
   }
 
   getCompletionItems(model: monaco.editor.IReadOnlyModel, position: monaco.Position): any {

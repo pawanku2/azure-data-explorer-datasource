@@ -20,7 +20,8 @@ export interface QueryEditorFieldSectionProps extends React.PropsWithChildren<Qu
 }
 
 export const QueryEditorFieldSection = (config: FieldSectionConfiguration): React.FC<QueryEditorFieldSectionProps> => {
-  return props => {
+  /* eslint-disable react/display-name */
+  return (props: QueryEditorFieldSectionProps) => {
     const { onChange: propsOnChange } = props;
     const expression = props.value ?? config.defaultValue;
 
@@ -41,6 +42,7 @@ export const QueryEditorFieldSection = (config: FieldSectionConfiguration): Reac
       </QueryEditorSection>
     );
   };
+  /* eslint-enable react/display-name */
 };
 
 const onChange = (propsOnChange: (value: QueryEditorExpression) => void) => (property: QueryEditorProperty) => {

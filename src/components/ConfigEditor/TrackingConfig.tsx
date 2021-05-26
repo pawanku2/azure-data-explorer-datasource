@@ -8,7 +8,7 @@ interface TrackingConfigProps
   updateJsonData: <T extends keyof AdxDataSourceOptions>(fieldName: T, value: AdxDataSourceOptions[T]) => void;
 }
 
-const TrackingConfig: React.FC<TrackingConfigProps> = ({ options, updateJsonData }) => {
+const TrackingConfig = ({ options, updateJsonData }: TrackingConfigProps) => {
   const { jsonData } = options;
 
   return (
@@ -17,11 +17,13 @@ const TrackingConfig: React.FC<TrackingConfigProps> = ({ options, updateJsonData
         label="Send username header to host"
         labelWidth={26}
         tooltip={
+          /* eslint-disable react/no-unescaped-entities */
           <p>
             With this feature enabled, Grafana will pass the logged in user's username in the <code>x-ms-user-id</code>{' '}
             header and in the <code>x-ms-client-request-id</code> header when sending requests to ADX. Can be useful
             when tracking needs to be done in ADX.{' '}
           </p>
+          /* eslint-enable react/no-unescaped-entities */
         }
       >
         <InlineSwitch

@@ -24,7 +24,8 @@ export interface QueryEditorReduceSectionProps extends QueryEditorSectionProps {
 export const QueryEditorReduceSection = (
   config: ReduceSectionConfiguration
 ): React.FC<QueryEditorReduceSectionProps> => {
-  return props => {
+  /* eslint-disable react/display-name */
+  return (props: QueryEditorReduceSectionProps) => {
     const styles = getStyles();
 
     if (props.value.expressions.length === 0) {
@@ -49,7 +50,7 @@ export const QueryEditorReduceSection = (
       <QueryEditorSection label={props.label}>
         <div className={styles.container}>
           <QueryEditorRepeater id="reduce" onChange={props.onChange} value={props.value}>
-            {childProps => {
+            {(childProps) => {
               if (!isReduceExpression(childProps.value)) {
                 return null;
               }
@@ -78,6 +79,7 @@ export const QueryEditorReduceSection = (
       </QueryEditorSection>
     );
   };
+  /* eslint-enable react/display-name */
 };
 
 const getStyles = stylesFactory(() => {

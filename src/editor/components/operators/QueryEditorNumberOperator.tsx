@@ -8,7 +8,7 @@ interface Props {
   operator: QueryEditorOperatorDefinition;
 }
 
-export const QueryEditorNumberOperator: React.FC<Props> = props => {
+export const QueryEditorNumberOperator = (props: Props) => {
   const [value, setValue] = useState<string>(String(props.value ?? 0));
   const {
     onChange,

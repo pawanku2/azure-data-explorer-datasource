@@ -8,7 +8,6 @@ import DatabaseConfig from './DatabaseConfig';
 import QueryConfig from './QueryConfig';
 import { refreshSchema, Schema } from './refreshSchema';
 import TrackingConfig from './TrackingConfig';
-import { alertError } from '@grafana/data/types/appEvents';
 import { Alert } from '@grafana/ui';
 
 interface ConfigEditorProps
@@ -20,15 +19,16 @@ type FetchErrorResponse = FetchResponse<{
   response?: string;
 }>;
 
-const ConfigEditor: React.FC<ConfigEditorProps> = props => {
+const ConfigEditor = (props: ConfigEditorProps) => {
   const { options, onOptionsChange } = props;
   const [schema, setSchema] = useState<Schema>({ databases: [], schemaMappingOptions: [] });
   const [schemaError, setSchemaError] = useState<FetchErrorResponse['data']>();
   const { jsonData } = options;
+  const databases = schema?.databases;
 
   const updateSchema = (url: string) => {
     refreshSchema(url)
-      .then(data => {
+      .then((data) => {
         setSchema(data);
         setSchemaError(undefined);
       })
@@ -53,10 +53,10 @@ const ConfigEditor: React.FC<ConfigEditorProps> = props => {
   }, [options.id, options.url]);
 
   useEffect(() => {
-    if (!jsonData.defaultDatabase && schema?.databases.length) {
-      updateJsonData('defaultDatabase', schema?.databases[0].value);
+    if (!jsonData.defaultDatabase && databases && databases.length) {
+      updateJsonData('defaultDatabase', databases[0].value);
     }
-  }, [schema?.databases, jsonData.defaultDatabase, updateJsonData]);
+  }, [databases, jsonData.defaultDatabase, updateJsonData]);
 
   const handleRefreshClick = useCallback(() => {
     updateSchema(options.url);

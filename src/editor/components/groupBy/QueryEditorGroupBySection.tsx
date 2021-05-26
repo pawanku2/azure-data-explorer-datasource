@@ -24,7 +24,8 @@ export interface QueryEditorGroupBySectionProps extends QueryEditorSectionProps 
 export const QueryEditorGroupBySection = (
   config: GroupBySectionConfiguration
 ): React.FC<QueryEditorGroupBySectionProps> => {
-  return props => {
+  /* eslint-disable react/display-name */
+  return (props: QueryEditorGroupBySectionProps) => {
     const styles = getStyles();
 
     if (props.value.expressions.length === 0) {
@@ -49,7 +50,7 @@ export const QueryEditorGroupBySection = (
       <QueryEditorSection label={props.label}>
         <div className={styles.container}>
           <QueryEditorRepeater id="group-by" onChange={props.onChange} value={props.value}>
-            {childProps => {
+            {(childProps) => {
               if (!isGroupBy(childProps.value)) {
                 return null;
               }
@@ -78,6 +79,7 @@ export const QueryEditorGroupBySection = (
       </QueryEditorSection>
     );
   };
+  /* eslint-enable react/display-name */
 };
 
 const getStyles = stylesFactory(() => {

@@ -29,7 +29,7 @@ describe('AdxDataSource', () => {
     });
 
     it('should return a list of databases', () => {
-      return ctx.ds.getDatabases().then(results => {
+      return ctx.ds.getDatabases().then((results) => {
         expect(results[0].text).toBe('Grafana');
         expect(results[0].value).toBe('Grafana');
       });
@@ -95,7 +95,7 @@ describe('AdxDataSource', () => {
     });
 
     it('should return a parsed schema', () => {
-      return ctx.ds.getSchema().then(result => {
+      return ctx.ds.getSchema().then((result) => {
         expect(Object.keys(result.Databases.Grafana.Tables).length).toBe(1);
         expect(result.Databases.Grafana.Tables.MyLogs.Name).toBe('MyLogs');
       });
