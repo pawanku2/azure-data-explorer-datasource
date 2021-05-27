@@ -1,10 +1,10 @@
 import React, { useMemo, useCallback, useEffect } from 'react';
 import { useAsync } from 'react-use';
-import { QueryEditorProps, PanelData } from '@grafana/data';
+import {  PanelData } from '@grafana/data';
 // Hack for issue: https://github.com/grafana/grafana/issues/26512
 import {} from '@emotion/core';
 import { AdxDataSource } from './datasource';
-import { KustoQuery, AdxDataSourceOptions, AdxSchema, EditorMode } from 'types';
+import { KustoQuery, AdxSchema, EditorMode } from 'types';
 import { QueryEditorPropertyDefinition } from './editor/types';
 import { RawQueryEditor } from './components/RawQueryEditor';
 import { databaseToDefinition } from './schema/mapper';
@@ -13,8 +13,24 @@ import { QueryEditorToolbar } from './components/QueryEditorToolbar';
 import { SchemaLoading } from 'components/SchemaMessages';
 import { needsToBeMigrated, migrateQuery } from 'migrations/query';
 
-type Props = QueryEditorProps<AdxDataSource, KustoQuery, AdxDataSourceOptions>;
-
+// TODO: throws typescript error? QueryEditorProps expects a DatasourceAPI not a DataSourceWithBackend
+// type Props = QueryEditorProps<AdxDataSource, KustoQuery, AdxDataSourceOptions>;
+// why can't we use QueryEditorProps
+type Props = {
+  datasource: AdxDataSource;
+  query: KustoQuery;
+  onRunQuery: () => void;
+  onChange: (value: KustoQuery) => void;
+  onBlur?: () => void;
+  /**
+   * Contains query response filtered by refId of QueryResultBase and possible query error
+   */
+  data?: PanelData;
+  // range?: TimeRange;
+  // exploreId?: any;
+  // history?: HistoryItem[];
+  // queries?: DataQuery[];
+}
 export const QueryEditor = (props: Props) => {
   const { datasource, onChange, onRunQuery, query } = props;
   const executedQuery = useExecutedQuery(props.data);

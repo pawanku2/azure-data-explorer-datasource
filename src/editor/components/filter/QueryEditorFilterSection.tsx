@@ -13,7 +13,6 @@ import { isFieldAndOperator, isOrExpression } from 'editor/guards';
 import { QueryEditorFieldAndOperator } from './QueryEditorFieldAndOperator';
 import { Button, Select, stylesFactory, InlineFormLabel } from '@grafana/ui';
 import { QueryEditorRepeater } from '../QueryEditorRepeater';
-import { CustomControlProps } from '@grafana/ui/components/Select/types';
 
 interface FilterSectionConfiguration {
   operators: QueryEditorOperatorDefinition[];

@@ -158,7 +158,7 @@ export class KustoExpressionParser {
 
     if (isOrExpression(expression)) {
       const orParts: string[] = [];
-      expression.expressions.map((exp) => this.appendWhere(context, exp, orParts));
+      // expression.expressions.map((exp) => this.appendWhere(context, exp, orParts));
       if (orParts.length === 0) {
         return;
       }

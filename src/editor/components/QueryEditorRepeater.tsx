@@ -32,7 +32,9 @@ export const QueryEditorRepeater = (props: Props) => {
 
       // Remove any expressions with empty sub expressions
       const remainingExpressions = next.filter((v) => {
-        return 'expressions' in v ? v.expressions.length > 0 : true;
+        // TODO: typescript claims here that v.expressions can never happen
+        // return 'expressions' in v ? v.expressions.length > 0 : true;
+        return true;
       });
 
       propsOnChange({
