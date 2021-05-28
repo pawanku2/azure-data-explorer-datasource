@@ -9,3 +9,7 @@ yarn.lock
 .d.ts
 .idea
 pkg/__debug_bin
+cypress/report.json
+cypress/screenshots/actual
+cypress/videos/
+provisioning

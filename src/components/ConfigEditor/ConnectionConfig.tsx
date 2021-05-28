@@ -51,6 +51,7 @@ const ConnectionConfig: React.FC<ConnectionConfigProps> = ({
         <Input
           value={jsonData.clusterUrl}
           id="adx-cluster-url"
+          data-testid="adx-cluster-url"
           placeholder="https://yourcluster.kusto.windows.net"
           width={60}
           onChange={(ev: React.ChangeEvent<HTMLInputElement>) => updateJsonData('clusterUrl', ev.target.value)}
@@ -77,6 +78,7 @@ const ConnectionConfig: React.FC<ConnectionConfigProps> = ({
         <Input
           value={jsonData.tenantId}
           id="adx-tenant-id"
+          data-testid="adx-tenant-id"
           width={60}
           onChange={(ev: React.ChangeEvent<HTMLInputElement>) => updateJsonData('tenantId', ev.target.value)}
         />
@@ -102,6 +104,7 @@ const ConnectionConfig: React.FC<ConnectionConfigProps> = ({
       >
         <Input
           value={jsonData.clientId}
+          data-testid="adx-client-id"
           id="adx-client-id"
           width={60}
           onChange={(ev: React.ChangeEvent<HTMLInputElement>) => updateJsonData('clientId', ev.target.value)}
