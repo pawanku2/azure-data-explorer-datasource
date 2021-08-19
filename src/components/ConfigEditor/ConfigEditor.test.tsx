@@ -14,7 +14,6 @@ describe('ConfigEditor', () => {
     refreshSchemaSpy = jest
       .spyOn(refreshSchema, 'refreshSchema')
       .mockResolvedValue({ databases: [], schemaMappingOptions: [] });
-
     jest.spyOn(grafanaRuntime, 'getDataSourceSrv').mockReturnValue({
       get: jest.fn().mockReturnValue({ url: Chance().url() }),
       getList: jest.fn(),
